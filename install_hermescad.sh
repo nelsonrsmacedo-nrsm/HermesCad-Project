@@ -3,7 +3,7 @@
 # Script de instalação e configuração do HermesCad CRM no Rocky Linux
 
 # --- Variáveis de Configuração ---
-REPO_URL="https://github.com/SEU_USUARIO/HermesCad-CRM.git" # **ATUALIZE COM A URL DO SEU REPOSITÓRIO NO GITHUB**
+REPO_URL="https://github.com/nelsonrsmacedo-nrsm/HermesCad-Project.git" # **ATUALIZE COM A URL DO SEU REPOSITÓRIO NO GITHUB**
 PROJECT_DIR="/opt/hermescad-crm"
 PYTHON_VERSION="3.11"
 NODE_VERSION="20"
