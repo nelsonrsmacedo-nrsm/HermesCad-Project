@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.jsx'
-import { Users, Building, Target, Activity, Package, Menu, X } from 'lucide-react'
+import { Users, Settings, Mail, Activity, Package, Menu, X } from 'lucide-react'
 import ClientesPage from './pages/ClientesPage'
-import ContatosPage from './pages/ContatosPage'
-import OportunidadesPage from './pages/OportunidadesPage'
+import MalaDiretaPage from './pages/MalaDiretaPage'
 import AtividadesPage from './pages/AtividadesPage'
 import ProdutosPage from './pages/ProdutosPage'
+import ConfiguracoesSistemaPage from './pages/ConfiguracoesSistemaPage'
 import Dashboard from './pages/Dashboard'
 import './App.css'
 
@@ -19,10 +19,10 @@ function Navigation() {
   const navItems = [
     { path: '/', label: 'Dashboard', icon: Activity },
     { path: '/clientes', label: 'Clientes', icon: Users },
-    { path: '/contatos', label: 'Contatos', icon: Building },
-    { path: '/oportunidades', label: 'Oportunidades', icon: Target },
+    { path: '/mala-direta', label: 'Mala Direta', icon: Mail },
     { path: '/atividades', label: 'Atividades', icon: Activity },
     { path: '/produtos', label: 'Produtos', icon: Package },
+    { path: '/configuracoes', label: 'Configurações', icon: Settings },
   ]
 
   return (
@@ -31,7 +31,7 @@ function Navigation() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <Building className="h-8 w-8 text-blue-600" />
+              <Settings className="h-8 w-8 text-blue-600" />
               <span className="text-xl font-bold text-gray-900">HermesCad CRM</span>
             </Link>
           </div>
@@ -110,10 +110,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/clientes" element={<ClientesPage />} />
-            <Route path="/contatos" element={<ContatosPage />} />
-            <Route path="/oportunidades" element={<OportunidadesPage />} />
+            <Route path="/mala-direta" element={<MalaDiretaPage />} />
             <Route path="/atividades" element={<AtividadesPage />} />
             <Route path="/produtos" element={<ProdutosPage />} />
+            <Route path="/configuracoes" element={<ConfiguracoesSistemaPage />} />
           </Routes>
         </main>
       </div>

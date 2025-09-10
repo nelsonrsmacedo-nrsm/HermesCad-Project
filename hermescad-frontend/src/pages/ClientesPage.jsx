@@ -16,7 +16,8 @@ function ClientesPage() {
     email: '',
     telefone: '',
     endereco: '',
-    cnpj_cpf: ''
+    cnpj_cpf: '',
+    cargo: ''  // Campo adicionado
   })
 
   useEffect(() => {
@@ -65,7 +66,8 @@ function ClientesPage() {
       email: cliente.email || '',
       telefone: cliente.telefone || '',
       endereco: cliente.endereco || '',
-      cnpj_cpf: cliente.cnpj_cpf || ''
+      cnpj_cpf: cliente.cnpj_cpf || '',
+      cargo: cliente.cargo || ''  // Campo adicionado
     })
     setIsDialogOpen(true)
   }
@@ -92,7 +94,8 @@ function ClientesPage() {
       email: '',
       telefone: '',
       endereco: '',
-      cnpj_cpf: ''
+      cnpj_cpf: '',
+      cargo: ''  // Campo adicionado
     })
     setEditingCliente(null)
   }
@@ -179,6 +182,16 @@ function ClientesPage() {
                   onChange={handleInputChange}
                 />
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="cargo">Cargo</Label>
+                <Input
+                  id="cargo"
+                  name="cargo"
+                  value={formData.cargo}
+                  onChange={handleInputChange}
+                  placeholder="Ex: Gerente, Diretor, etc."
+                />
+              </div>
               <div className="flex justify-end space-x-2">
                 <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
                   Cancelar
@@ -206,6 +219,7 @@ function ClientesPage() {
                 <TableHead>Nome</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Telefone</TableHead>
+                <TableHead>Cargo</TableHead>
                 <TableHead>CNPJ/CPF</TableHead>
                 <TableHead>Ações</TableHead>
               </TableRow>
@@ -230,6 +244,7 @@ function ClientesPage() {
                       </div>
                     )}
                   </TableCell>
+                  <TableCell>{cliente.cargo || '-'}</TableCell>
                   <TableCell>{cliente.cnpj_cpf}</TableCell>
                   <TableCell>
                     <div className="flex space-x-2">

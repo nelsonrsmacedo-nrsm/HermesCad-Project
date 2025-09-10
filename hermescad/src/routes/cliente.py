@@ -23,7 +23,8 @@ def create_cliente():
         endereco=data.get('endereco'),
         telefone=data.get('telefone'),
         email=data.get('email'),
-        cnpj_cpf=data.get('cnpj_cpf')
+        cnpj_cpf=data.get('cnpj_cpf'),
+        cargo=data.get('cargo')  # Campo adicionado
     )
     
     try:
@@ -44,6 +45,7 @@ def update_cliente(id):
     cliente.telefone = data.get('telefone', cliente.telefone)
     cliente.email = data.get('email', cliente.email)
     cliente.cnpj_cpf = data.get('cnpj_cpf', cliente.cnpj_cpf)
+    cliente.cargo = data.get('cargo', cliente.cargo)  # Campo adicionado
     
     try:
         db.session.commit()

@@ -11,13 +11,9 @@ class Cliente(db.Model):
     telefone = db.Column(db.String(20))
     email = db.Column(db.String(120), unique=True)
     cnpj_cpf = db.Column(db.String(20), unique=True)
+    cargo = db.Column(db.String(100))  # Campo adicionado do modelo Contato
     data_cadastro = db.Column(db.DateTime, default=datetime.utcnow)
     
-    # Relacionamentos
-    contatos = db.relationship('Contato', backref='cliente', lazy=True, cascade='all, delete-orphan')
-    oportunidades = db.relationship('Oportunidade', backref='cliente', lazy=True, cascade='all, delete-orphan')
-    atividades = db.relationship('Atividade', backref='cliente', lazy=True)
-
     def __repr__(self):
         return f'<Cliente {self.nome}>'
 
@@ -29,6 +25,6 @@ class Cliente(db.Model):
             'telefone': self.telefone,
             'email': self.email,
             'cnpj_cpf': self.cnpj_cpf,
+            'cargo': self.cargo,  # Campo adicionado
             'data_cadastro': self.data_cadastro.isoformat() if self.data_cadastro else None
         }
-

@@ -7,7 +7,6 @@ class Atividade(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     cliente_id = db.Column(db.Integer, db.ForeignKey('clientes.id'))
-    oportunidade_id = db.Column(db.Integer, db.ForeignKey('oportunidades.id'))
     tipo = db.Column(db.String(50), nullable=False)
     descricao = db.Column(db.Text)
     data_hora = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -20,7 +19,6 @@ class Atividade(db.Model):
         return {
             'id': self.id,
             'cliente_id': self.cliente_id,
-            'oportunidade_id': self.oportunidade_id,
             'tipo': self.tipo,
             'descricao': self.descricao,
             'data_hora': self.data_hora.isoformat() if self.data_hora else None,

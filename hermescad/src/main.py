@@ -7,16 +7,15 @@ from flask import Flask, send_from_directory
 from flask_cors import CORS
 from src.models.user import db
 from src.models.cliente import Cliente
-from src.models.contato import Contato
-from src.models.oportunidade import Oportunidade
 from src.models.atividade import Atividade
 from src.models.produto import Produto
+from src.models.configuracoes_sistema import ConfiguracoesSistema
 from src.routes.user import user_bp
 from src.routes.cliente import cliente_bp
-from src.routes.contato import contato_bp
-from src.routes.oportunidade import oportunidade_bp
+from src.routes.mala_direta import mala_direta_bp
 from src.routes.atividade import atividade_bp
 from src.routes.produto import produto_bp
+from src.routes.configuracoes_sistema import configuracoes_sistema_bp
 
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
@@ -26,10 +25,10 @@ CORS(app)
 
 app.register_blueprint(user_bp, url_prefix='/api')
 app.register_blueprint(cliente_bp, url_prefix='/api')
-app.register_blueprint(contato_bp, url_prefix='/api')
-app.register_blueprint(oportunidade_bp, url_prefix='/api')
+app.register_blueprint(mala_direta_bp, url_prefix='/api')
 app.register_blueprint(atividade_bp, url_prefix='/api')
 app.register_blueprint(produto_bp, url_prefix='/api')
+app.register_blueprint(configuracoes_sistema_bp, url_prefix='/api')
 
 # uncomment if you need to use database
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"

@@ -1,36 +1,32 @@
 import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
-import { Users, Building, Target, Activity, TrendingUp, DollarSign } from 'lucide-react'
+import { Users, Building, Mail, Activity, TrendingUp, DollarSign } from 'lucide-react'
 
 function Dashboard() {
   const [stats, setStats] = useState({
     totalClientes: 0,
-    totalOportunidades: 0,
+    totalCampanhas: 0,
     totalAtividades: 0,
-    valorTotalOportunidades: 0
+    campanhasEnviadas: 0
   })
 
   useEffect(() => {
     // Buscar estatísticas do backend
     const fetchStats = async () => {
       try {
-        const [clientesRes, oportunidadesRes, atividadesRes] = await Promise.all([
+        const [clientesRes, atividadesRes] = await Promise.all([
           fetch('/api/clientes'),
-          fetch('/api/oportunidades'),
           fetch('/api/atividades')
         ])
 
         const clientes = await clientesRes.json()
-        const oportunidades = await oportunidadesRes.json()
         const atividades = await atividadesRes.json()
-
-        const valorTotal = oportunidades.reduce((sum, op) => sum + (op.valor || 0), 0)
 
         setStats({
           totalClientes: clientes.length,
-          totalOportunidades: oportunidades.length,
+          totalCampanhas: 0, // Será implementado futuramente
           totalAtividades: atividades.length,
-          valorTotalOportunidades: valorTotal
+          campanhasEnviadas: 0 // Será implementado futuramente
         })
       } catch (error) {
         console.error('Erro ao buscar estatísticas:', error)
@@ -39,13 +35,6 @@ function Dashboard() {
 
     fetchStats()
   }, [])
-
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(value)
-  }
 
   return (
     <div className="space-y-6">
@@ -71,13 +60,13 @@ function Dashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Oportunidades</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Campanhas</CardTitle>
+            <Mail className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.totalOportunidades}</div>
+            <div className="text-2xl font-bold">{stats.totalCampanhas}</div>
             <p className="text-xs text-muted-foreground">
-              Oportunidades em andamento
+              Campanhas de mala direta criadas
             </p>
           </CardContent>
         </Card>
@@ -97,13 +86,13 @@ function Dashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Valor Total</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Campanhas Enviadas</CardTitle>
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatCurrency(stats.valorTotalOportunidades)}</div>
+            <div className="text-2xl font-bold">{stats.campanhasEnviadas}</div>
             <p className="text-xs text-muted-foreground">
-              Valor total das oportunidades
+              Total de campanhas enviadas
             </p>
           </CardContent>
         </Card>
@@ -128,11 +117,11 @@ function Dashboard() {
                 <span className="text-sm font-medium">Novo Cliente</span>
               </a>
               <a
-                href="/oportunidades"
+                href="/mala-direta"
                 className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-gray-50 transition-colors"
               >
-                <Target className="h-5 w-5 text-green-600" />
-                <span className="text-sm font-medium">Nova Oportunidade</span>
+                <Mail className="h-5 w-5 text-green-600" />
+                <span className="text-sm font-medium">Nova Campanha</span>
               </a>
               <a
                 href="/atividades"
