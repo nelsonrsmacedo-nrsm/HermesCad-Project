@@ -21,10 +21,14 @@ def create_cliente():
     cliente = Cliente(
         nome=data.get('nome'),
         endereco=data.get('endereco'),
-        telefone=data.get('telefone'),
-        email=data.get('email'),
-        cnpj_cpf=data.get('cnpj_cpf'),
-        cargo=data.get('cargo')  # Campo adicionado
+        numero_telefone=data.get("numero_telefone"),
+        numero_celular=data.get("numero_celular"),
+        possui_whatsapp=data.get("possui_whatsapp"),
+        area_atuacao=data.get("area_atuacao"),
+        cpf_cnpj=data.get("cpf_cnpj"),
+        informacoes_financeiras=data.get("informacoes_financeiras"),
+        email=data.get("email"),
+        cargo=data.get("cargo")
     )
     
     try:
@@ -42,10 +46,15 @@ def update_cliente(id):
     
     cliente.nome = data.get('nome', cliente.nome)
     cliente.endereco = data.get('endereco', cliente.endereco)
-    cliente.telefone = data.get('telefone', cliente.telefone)
-    cliente.email = data.get('email', cliente.email)
-    cliente.cnpj_cpf = data.get('cnpj_cpf', cliente.cnpj_cpf)
-    cliente.cargo = data.get('cargo', cliente.cargo)  # Campo adicionado
+    cliente.numero_telefone = data.get("numero_telefone", cliente.numero_telefone)
+    cliente.numero_celular = data.get("numero_celular", cliente.numero_celular)
+    cliente.possui_whatsapp = data.get("possui_whatsapp", cliente.possui_whatsapp)
+    cliente.area_atuacao = data.get("area_atuacao", cliente.area_atuacao)
+    cliente.cpf_cnpj = data.get("cpf_cnpj", cliente.cpf_cnpj)
+    cliente.informacoes_financeiras = data.get("informacoes_financeiras", cliente.informacoes_financeiras)
+    cliente.email = data.get("email", cliente.email)
+    cliente.cargo = data.get("cargo", cliente.cargo)
+
     
     try:
         db.session.commit()

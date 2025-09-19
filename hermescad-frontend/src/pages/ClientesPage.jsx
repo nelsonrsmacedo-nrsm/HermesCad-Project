@@ -12,12 +12,16 @@ function ClientesPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [editingCliente, setEditingCliente] = useState(null)
   const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    telefone: '',
-    endereco: '',
-    cnpj_cpf: '',
-    cargo: ''  // Campo adicionado
+    nome: ",
+    email: ",
+    endereco: ",
+    numero_telefone: ",
+    numero_celular: ",
+    possui_whatsapp: false,
+    area_atuacao: ",
+    cpf_cnpj: ",
+    informacoes_financeiras: ",
+    cargo: "
   })
 
   useEffect(() => {
@@ -62,12 +66,16 @@ function ClientesPage() {
   const handleEdit = (cliente) => {
     setEditingCliente(cliente)
     setFormData({
-      nome: cliente.nome || '',
-      email: cliente.email || '',
-      telefone: cliente.telefone || '',
-      endereco: cliente.endereco || '',
-      cnpj_cpf: cliente.cnpj_cpf || '',
-      cargo: cliente.cargo || ''  // Campo adicionado
+      nome: cliente.nome || ",
+      email: cliente.email || ",
+      endereco: cliente.endereco || ",
+      numero_telefone: cliente.numero_telefone || ",
+      numero_celular: cliente.numero_celular || ",
+      possui_whatsapp: cliente.possui_whatsapp || false,
+      area_atuacao: cliente.area_atuacao || ",
+      cpf_cnpj: cliente.cpf_cnpj || ",
+      informacoes_financeiras: cliente.informacoes_financeiras || ",
+      cargo: cliente.cargo || "
     })
     setIsDialogOpen(true)
   }
@@ -90,12 +98,16 @@ function ClientesPage() {
 
   const resetForm = () => {
     setFormData({
-      nome: '',
-      email: '',
-      telefone: '',
-      endereco: '',
-      cnpj_cpf: '',
-      cargo: ''  // Campo adicionado
+      nome: ",
+      email: ",
+      endereco: ",
+      numero_telefone: ",
+      numero_celular: ",
+      possui_whatsapp: false,
+      area_atuacao: ",
+      cpf_cnpj: ",
+      informacoes_financeiras: ",
+      cargo: "
     })
     setEditingCliente(null)
   }
