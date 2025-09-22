@@ -16,6 +16,7 @@ class Cliente(db.Model):
     informacoes_financeiras = db.Column(db.Text)
     email = db.Column(db.String(120), unique=True)
     cargo = db.Column(db.String(100))
+    site = db.Column(db.String(200))
     data_cadastro = db.Column(db.DateTime, default=datetime.utcnow)
     
     def __repr__(self):
@@ -34,5 +35,6 @@ class Cliente(db.Model):
             'informacoes_financeiras': self.informacoes_financeiras,
             'email': self.email,
             'cargo': self.cargo,
+            'site': self.site,
             'data_cadastro': self.data_cadastro.isoformat() if self.data_cadastro else None
         }

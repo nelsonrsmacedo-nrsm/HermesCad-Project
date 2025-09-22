@@ -28,7 +28,8 @@ def create_cliente():
         cpf_cnpj=data.get("cpf_cnpj"),
         informacoes_financeiras=data.get("informacoes_financeiras"),
         email=data.get("email"),
-        cargo=data.get("cargo")
+        cargo=data.get("cargo"),
+        site=data.get("site")
     )
     
     try:
@@ -54,6 +55,8 @@ def update_cliente(id):
     cliente.informacoes_financeiras = data.get("informacoes_financeiras", cliente.informacoes_financeiras)
     cliente.email = data.get("email", cliente.email)
     cliente.cargo = data.get("cargo", cliente.cargo)
+    cliente.site = data.get("site", cliente.site)
+
 
     
     try:

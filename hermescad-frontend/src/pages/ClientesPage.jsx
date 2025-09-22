@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
@@ -12,16 +13,17 @@ function ClientesPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [editingCliente, setEditingCliente] = useState(null)
   const [formData, setFormData] = useState({
-    nome: ",
-    email: ",
-    endereco: ",
-    numero_telefone: ",
-    numero_celular: ",
+    nome: '',
+    endereco: '',
+    numero_telefone: '',
+    numero_celular: '',
     possui_whatsapp: false,
-    area_atuacao: ",
-    cpf_cnpj: ",
-    informacoes_financeiras: ",
-    cargo: "
+    area_atuacao: '',
+    cpf_cnpj: '',
+    informacoes_financeiras: '',
+    email: '',
+    site: '',
+    cargo: ''
   })
 
   useEffect(() => {
@@ -57,25 +59,31 @@ function ClientesPage() {
         await fetchClientes()
         setIsDialogOpen(false)
         resetForm()
+      } else {
+        const errorData = await response.json()
+        console.error('Erro do servidor:', errorData)
+        alert(`Erro ao salvar cliente: ${errorData.error || response.statusText}`)
       }
     } catch (error) {
       console.error('Erro ao salvar cliente:', error)
+      alert('Erro ao salvar cliente. Verifique a conexão.')
     }
   }
 
   const handleEdit = (cliente) => {
     setEditingCliente(cliente)
     setFormData({
-      nome: cliente.nome || ",
-      email: cliente.email || ",
-      endereco: cliente.endereco || ",
-      numero_telefone: cliente.numero_telefone || ",
-      numero_celular: cliente.numero_celular || ",
+      nome: cliente.nome || '',
+      endereco: cliente.endereco || '',
+      numero_telefone: cliente.numero_telefone || '',
+      numero_celular: cliente.numero_celular || '',
       possui_whatsapp: cliente.possui_whatsapp || false,
-      area_atuacao: cliente.area_atuacao || ",
-      cpf_cnpj: cliente.cpf_cnpj || ",
-      informacoes_financeiras: cliente.informacoes_financeiras || ",
-      cargo: cliente.cargo || "
+      area_atuacao: cliente.area_atuacao || '',
+      cpf_cnpj: cliente.cpf_cnpj || '',
+      informacoes_financeiras: cliente.informacoes_financeiras || '',
+      email: cliente.email || '',
+      site: cliente.site || '',
+      cargo: cliente.cargo || ''
     })
     setIsDialogOpen(true)
   }
@@ -89,34 +97,40 @@ function ClientesPage() {
 
         if (response.ok) {
           await fetchClientes()
+        } else {
+          const errorData = await response.json()
+          console.error('Erro do servidor:', errorData)
+          alert(`Erro ao excluir cliente: ${errorData.error || response.statusText}`)
         }
       } catch (error) {
         console.error('Erro ao excluir cliente:', error)
+        alert('Erro ao excluir cliente. Verifique a conexão.')
       }
     }
   }
 
   const resetForm = () => {
     setFormData({
-      nome: ",
-      email: ",
-      endereco: ",
-      numero_telefone: ",
-      numero_celular: ",
+      nome: '',
+      endereco: '',
+      numero_telefone: '',
+      numero_celular: '',
       possui_whatsapp: false,
-      area_atuacao: ",
-      cpf_cnpj: ",
-      informacoes_financeiras: ",
-      cargo: "
+      area_atuacao: '',
+      cpf_cnpj: '',
+      informacoes_financeiras: '',
+      email: '',
+      site: '',
+      cargo: ''
     })
     setEditingCliente(null)
   }
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value, type, checked } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     }))
   }
 
@@ -158,6 +172,71 @@ function ClientesPage() {
                 />
               </div>
               <div className="space-y-2">
+                <Label htmlFor="endereco">Endereço</Label>
+                <Input
+                  id="endereco"
+                  name="endereco"
+                  value={formData.endereco}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="numero_telefone">Telefone</Label>
+                <Input
+                  id="numero_telefone"
+                  name="numero_telefone"
+                  value={formData.numero_telefone}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="numero_celular">Celular</Label>
+                <Input
+                  id="numero_celular"
+                  name="numero_celular"
+                  value={formData.numero_celular}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="possui_whatsapp"
+                  name="possui_whatsapp"
+                  checked={formData.possui_whatsapp}
+                  onChange={handleInputChange}
+                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                />
+                <Label htmlFor="possui_whatsapp">Possui WhatsApp</Label>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="area_atuacao">Área de Atuação</Label>
+                <Input
+                  id="area_atuacao"
+                  name="area_atuacao"
+                  value={formData.area_atuacao}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="cpf_cnpj">CPF ou CNPJ</Label>
+                <Input
+                  id="cpf_cnpj"
+                  name="cpf_cnpj"
+                  value={formData.cpf_cnpj}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="informacoes_financeiras">Informações Financeiras (PIX, Conta Bancária)</Label>
+                <Input
+                  id="informacoes_financeiras"
+                  name="informacoes_financeiras"
+                  value={formData.informacoes_financeiras}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
@@ -168,29 +247,11 @@ function ClientesPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="telefone">Telefone</Label>
+                <Label htmlFor="site">Site</Label>
                 <Input
-                  id="telefone"
-                  name="telefone"
-                  value={formData.telefone}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="endereco">Endereço</Label>
-                <Input
-                  id="endereco"
-                  name="endereco"
-                  value={formData.endereco}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="cnpj_cpf">CNPJ/CPF</Label>
-                <Input
-                  id="cnpj_cpf"
-                  name="cnpj_cpf"
-                  value={formData.cnpj_cpf}
+                  id="site"
+                  name="site"
+                  value={formData.site}
                   onChange={handleInputChange}
                 />
               </div>
@@ -231,8 +292,13 @@ function ClientesPage() {
                 <TableHead>Nome</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Telefone</TableHead>
+                <TableHead>Celular</TableHead>
+                <TableHead>WhatsApp</TableHead>
+                <TableHead>Área de Atuação</TableHead>
+                <TableHead>CPF/CNPJ</TableHead>
+                <TableHead>Info Financeiras</TableHead>
+                <TableHead>Site</TableHead>
                 <TableHead>Cargo</TableHead>
-                <TableHead>CNPJ/CPF</TableHead>
                 <TableHead>Ações</TableHead>
               </TableRow>
             </TableHeader>
@@ -240,24 +306,15 @@ function ClientesPage() {
               {clientes.map((cliente) => (
                 <TableRow key={cliente.id}>
                   <TableCell className="font-medium">{cliente.nome}</TableCell>
-                  <TableCell>
-                    {cliente.email && (
-                      <div className="flex items-center space-x-1">
-                        <Mail className="h-4 w-4 text-gray-400" />
-                        <span>{cliente.email}</span>
-                      </div>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {cliente.telefone && (
-                      <div className="flex items-center space-x-1">
-                        <Phone className="h-4 w-4 text-gray-400" />
-                        <span>{cliente.telefone}</span>
-                      </div>
-                    )}
-                  </TableCell>
+                  <TableCell>{cliente.email || '-'}</TableCell>
+                  <TableCell>{cliente.numero_telefone || '-'}</TableCell>
+                  <TableCell>{cliente.numero_celular || '-'}</TableCell>
+                  <TableCell>{cliente.possui_whatsapp ? 'Sim' : 'Não'}</TableCell>
+                  <TableCell>{cliente.area_atuacao || '-'}</TableCell>
+                  <TableCell>{cliente.cpf_cnpj || '-'}</TableCell>
+                  <TableCell>{cliente.informacoes_financeiras || '-'}</TableCell>
+                  <TableCell>{cliente.site || '-'}</TableCell>
                   <TableCell>{cliente.cargo || '-'}</TableCell>
-                  <TableCell>{cliente.cnpj_cpf}</TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
                       <Button
@@ -292,4 +349,5 @@ function ClientesPage() {
 }
 
 export default ClientesPage
+
 
